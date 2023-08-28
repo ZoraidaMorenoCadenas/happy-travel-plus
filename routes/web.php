@@ -21,7 +21,7 @@ class CardController extends Controller
 
     public function show($id)
     {
-        $card = Travel::findOrFail($id);
+        $card = Card::findOrFail($id);
 
         return response()->json($card);
     }
@@ -62,6 +62,6 @@ class CardController extends Controller
     {
         // Resto del código para buscar viajes...
 
-        return response()->json($travels);
+        return response()->json($cards);
     }
 }
