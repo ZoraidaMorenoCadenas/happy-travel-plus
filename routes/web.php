@@ -15,7 +15,6 @@ class CardController extends Controller
     public function index()
     {
         $cards = Card::all();
-
         return response()->json($cards);
     }
 
