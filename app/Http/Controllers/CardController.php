@@ -1,9 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\View\View;
 use App\Models\Card;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class CardController extends Controller
 {
@@ -13,18 +18,12 @@ class CardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(): View
+    public function index()
     {
-
-        $cards = Card::latest()->paginate(10);
-        return view('cards', compact('cards'));
-        /*return [
-            "status" => 1,
-            "data" => $cards
-        ];*/
-
+        //$cards = Card::latest()->paginate(10);
+        $cards = Card::all();
+        return response()->json($cards);
     }
-
     
     /**
      * Show the form for creating a new resource.
@@ -42,28 +41,23 @@ class CardController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request): RedirectResponse
+    
+    
+     public function store(Request $request) : RedirectResponse
     {
-                $validated = $request->validate([
-                    'description' => 'required|string|max:500',
-                    'title' => 'required|string|max:255',
-                    'location' => 'required|string|max:255',
-                    'image' => 'required|image|mimes:jpeg,png,jpg,gif',
+        $validated = $request->validate([
+            'description' => 'required|string|max:500',
+            'title' => 'required|string|max:255',
+            'location' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif', 
         ]);
-        
+     if ($request->hasFile('image')) {
         $imagePath = $request->file('image')->store('images', 'public');
-
         $validated['image'] = $imagePath;
-
-        $request->user()->cards()->create($validated);
+    }
  
-        /*return redirect(route('dashboard'));*/
-
-        $card = Card::create($request->all());
-        return [
-            "status" => 1,
-            "data" => $card
-        ];
+        $card->update($validated);
+        return redirect()->route('cards.index')->with('success', '¡Registro agregado exitosamente!');
 
     }
 
@@ -86,6 +80,13 @@ class CardController extends Controller
             {
         $card = Card::findOrFail($id);
         return view('detail', compact('card'));
+
+        Proyecto Moni
+        public function show($id)
+{
+    $travel = Travel::findOrFail($id);
+    return view('show', compact('travel'));
+}
     }*/
 
 
@@ -110,7 +111,7 @@ class CardController extends Controller
      * @param  \App\Models\Card  $guest_Card
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Card $card):RedirectResponse
+    public function update(Request $request, Card $card)
     {
         $this->authorize('update', $card);
 
@@ -127,10 +128,9 @@ class CardController extends Controller
         }
 
         $card->update($validated);
- 
-        return redirect(route('dashboard'));
- 
-        /*$card->update($request->all());
+        /*return redirect(route('dashboard'));*/
+
+        $card->update($request->all());
  
         return [
             "status" => 1,
@@ -170,33 +170,58 @@ class CardController extends Controller
      * @param  \App\Models\Card  $guest_Card
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Card $card)
+    public function destroy(int $id)
     {
-        //
-        $blog->delete();
-        return [
-            "status" => 1,
-            "data" => $card,
-            "msg" => "Register deleted successfully"
-        ];
+            try {
+                $card = Card::findOrFail($id);
+    
+                if ($card ->user_id !== Auth::user()->id) {
+                    return response()->json(['success' => false, 'error' => 'No tienes permiso para eliminar este destino.']);
+                }
+   
+                $imagePath = public_path($card->image);
+   
+                if (file_exists($imagePath)) {
+                    unlink($imagePath);
+                }
+   
+                $card->delete();
+                return response()->json(['success' => true, 'message' => 'Destino eliminado exitosamente']);
+            } catch (ModelNotFoundException $e) {
+                return response()->json(['success' => false, 'error' => 'El destino no se encontró.']);
+            } catch (\Exception $e) {
+                return response()->json(['success' => false, 'error' => $e->getMessage()]);
+            }
 
-        /*Proyecto Travel Joy
+            /*Proyecto Travel Joy
         public function destroy(int $id)
             {
             $card = Card::findOrFail($id);
              $card->delete();
              return redirect()->route('cards')->with('success', 'Registro eliminado exitosamente.');
             }*/
-    }
-
-
-    //Controler de search
-
-public function search(Request $request)
-{
-   $cards = Card::search($request->search);
+        }
     
 
-    return view('cards', ['cards' => $cards]);
-}
-}
+        
+    
+
+
+    //Controler de search Travel Joy
+
+    public function search(Request $request):JsonResponse
+    {
+        $cards = Card::search($request->search);            
+        return response()->json($cards);
+    }
+
+        /*Moni proyecto 
+        public function search(Request $request): JsonResponse
+         {
+        $searchTerm = $request->input('search');
+        $travels = Travel::search($searchTerm);
+        
+        return response()->json($travels);
+         }*/
+
+}   

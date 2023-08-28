@@ -20,4 +20,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
+
 Route::resource('cards', CardController::class);
+
+
+//Route::apiResource('happy_travel', TravelController::class);
+
+// OJO RUTAS
+// GET All destination http://localhost:8000/api/cards
+// GEL One destination http://localhost:8000/api/cards/{id}
