@@ -73,6 +73,7 @@ class CardController extends Controller
         try {
             $card = Card::findOrFail($id);
             return response()->json($card);
+            
         } catch (\Exception $e) {
             return response()->json(['error' => 'El destino no se encontró.'], 404);
         }
