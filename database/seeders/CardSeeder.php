@@ -18,15 +18,15 @@ class CardSeeder extends Seeder
     public function run()
     {
 
-        $imagePath = public_path('storage/images/B70o7gcmIu5qCt1ESPiklWOzMJfN3ryflv5zJiHU.jpg');
-        $uploadedImagePath = Storage::putFile('public/images', $imagePath);
+        $imagePath = public_path('images');
+        $uploadedImagePath = Storage::putFile('public/storage', $imagePath);
 
         $cards = [
             [   'user_id' => 1,
                 'image' => $imagePath, 
-                'title' => 'Fun Vacation',
+                'title' => 'imagepath',
                 'location' => 'Puerto Rico',
-                'description' => 'Playa, sol y Arena'
+                'description' => 'imagepath'
             ],
             
             [
@@ -42,19 +42,19 @@ class CardSeeder extends Seeder
                 'image' => Storage::url($uploadedImagePath),
                 'title' => 'Romantic Vacation',
                 'location' => 'Italia',
-                'description' => 'Pizza, ice cream'
+                'description' => 'storage::URL'
             ],
             [
                 'user_id' => 2,
-                'image' => 'seed_images/05.jpg',
+                'image' => 'http://127.0.0.1:8000/storage/images/bQ1Wgkhg9UpgKsOwXSLOWnkgJuoYQ9Ah68SOvYqJ.jpg',
                 'title' => 'Safari de aventura',
                 'location' => 'Kenia',
-                'description' => 'Sientes la llamada de la naturaleza mientras elefantes y leones vagan libremente a tu alrededor. Esta experiencia vale absolutamente la pena cada segundo y una aventura para toda la vida'
+                'description' => 'hhtp'
             ],
             
             [
                 'user_id' => 1,
-                'image' => 'seed_images/06.jpg',
+                'image' => 'storage/images/bQ1Wgkhg9UpgKsOwXSLOWnkgJuoYQ9Ah68SOvYqJ.jpg',
                 'title' => 'Escapada Soñada',
                 'location' => 'Grecia',
                 'description' => 'Todo es mejor en Grecia, donde el vino es más suave, las aguas son más claras y las puestas de sol son más intensas. Los viajeros nunca quieren irse'
