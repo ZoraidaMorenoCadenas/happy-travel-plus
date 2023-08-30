@@ -57,7 +57,7 @@ class CardSeeder extends Seeder
                 'image' => 'storage/images/bQ1Wgkhg9UpgKsOwXSLOWnkgJuoYQ9Ah68SOvYqJ.jpg',
                 'title' => 'Escapada Soñada',
                 'location' => 'Grecia',
-                'description' => 'Todo es mejor en Grecia, donde el vino es más suave, las aguas son más claras y las puestas de sol son más intensas. Los viajeros nunca quieren irse'
+                'description' => 'URL las puestas de sol son más intensas. Los viajeros nunca quieren irse'
             ],
 
             [
