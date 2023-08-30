@@ -18,20 +18,22 @@ class CardSeeder extends Seeder
     public function run()
     {
 
-        $imagePath = public_path('images');
-        $uploadedImagePath = Storage::putFile('public/storage', $imagePath);
-
+        $imagePath = public_path('storage/images/imagen.png');
+        // Subir la imagen al sistema de archivos de Laravel
+        $uploadedImagePath = Storage::putFile('public/images', $imagePath);
+        
+    
         $cards = [
             [   'user_id' => 1,
-                'image' => $imagePath, 
-                'title' => 'imagepath',
+                'image' => "http://127.0.0.1:8000/storage/images/bQ1Wgkhg9UpgKsOwXSLOWnkgJuoYQ9Ah68SOvYqJ.jpg",
+                'title' => 'StorageURL',
                 'location' => 'Puerto Rico',
-                'description' => 'imagepath'
+                'description' => 'storage URL'
             ],
             
             [
                 'user_id' => 2,
-                'image' => $imagePath,
+                'image' => "http://127.0.0.1:8000/storage/images/bQ1Wgkhg9UpgKsOwXSLOWnkgJuoYQ9Ah68SOvYqJ.jpg",
                 'title' => 'Extreme travel',
                 'location' => 'Everest',
                 'description' => 'Snow and sport'
@@ -39,7 +41,7 @@ class CardSeeder extends Seeder
 
             [
                 'user_id' => 2,
-                'image' => Storage::url($uploadedImagePath),
+                'image' => "http://127.0.0.1:8000/storage/images/bQ1Wgkhg9UpgKsOwXSLOWnkgJuoYQ9Ah68SOvYqJ.jpg",
                 'title' => 'Romantic Vacation',
                 'location' => 'Italia',
                 'description' => 'storage::URL'
