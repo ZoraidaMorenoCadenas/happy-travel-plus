@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Card;
+use Illuminate\Support\Facades\Storage;
 
 
 class CardSeeder extends Seeder
@@ -17,9 +18,12 @@ class CardSeeder extends Seeder
     public function run()
     {
 
+        $imagePath = public_path('storage/images/B70o7gcmIu5qCt1ESPiklWOzMJfN3ryflv5zJiHU.jpg');
+        $uploadedImagePath = Storage::putFile('public/images', $imagePath);
+
         $cards = [
             [   'user_id' => 1,
-                'image' => 'seed_images/01.jpg', 
+                'image' => $imagePath, 
                 'title' => 'Fun Vacation',
                 'location' => 'Puerto Rico',
                 'description' => 'Playa, sol y Arena'
@@ -27,7 +31,7 @@ class CardSeeder extends Seeder
             
             [
                 'user_id' => 2,
-                'image' => 'seed_images/02.jpg',
+                'image' => $imagePath,
                 'title' => 'Extreme travel',
                 'location' => 'Everest',
                 'description' => 'Snow and sport'
@@ -35,7 +39,7 @@ class CardSeeder extends Seeder
 
             [
                 'user_id' => 2,
-                'image' => 'seed_images/08.jpg',
+                'image' => Storage::url($uploadedImagePath),
                 'title' => 'Romantic Vacation',
                 'location' => 'Italia',
                 'description' => 'Pizza, ice cream'
@@ -74,21 +78,21 @@ class CardSeeder extends Seeder
             ],
             [
                 'user_id' => 2,
-                'image' => 'seed_images/11.jpg',
+                'image' => 'images/B70o7gcmIu5qCt1ESPiklWOzMJfN3ryflv5zJiHU.jpg',
                 'title' => 'Playas paradisiacas y paz',
                 'location' => 'Maldivas',
                 'description' => 'Despertarse con el runrún del mar en su idílico bungaló en las Maldivas dará vida a la realidad tropical'
             ],
             [
                 'user_id' => 1,
-                'image' => 'seed_images/09.jpg',
+                'image' => 'images/B70o7gcmIu5qCt1ESPiklWOzMJfN3ryflv5zJiHU.jpg',
                 'title' => 'Salto Angel, una maravilla natural',
                 'location' => 'Venezuela',
                 'description' => 'El Salto Ángel es una de las mayores atracciones turísticas de Venezuela. Su sola visión te dejará sin aliento. Una experiencia indescriptible que debes vivir'
             ],
             [
                 'user_id' => 2,
-                'image' => 'seed_images/04.jpg',
+                'image' => 'images/B70o7gcmIu5qCt1ESPiklWOzMJfN3ryflv5zJiHU.jpg',
                 'title' => 'Islas Galapagos, el origen de las especies',
                 'location' => 'Ecuador',
                 'description' => 'Un viaje en el tiempo para entender por qué Darwin encontró su tierra de ensueño aquí. La flora y la fauna abundantes y las especies asombrosas dan color al ambiente en medio de la emoción de la aventura'
@@ -96,7 +100,7 @@ class CardSeeder extends Seeder
 
             [
                 'user_id' => 1,
-                'image' => 'seed_images/8.jpg',
+                'image' => 'images/B70o7gcmIu5qCt1ESPiklWOzMJfN3ryflv5zJiHU.jpg',
                 'title' => 'Machu Pichu, tribus e historia',
                 'location' => 'Perú',
                 'description' => 'Pasear por el Camino Inca es un intenso viaje a siglos pasados y a las raíces de nuestra historia que permanecen vivas hasta el día de hoy'
@@ -104,10 +108,6 @@ class CardSeeder extends Seeder
 
             ];
           
-
-        /*foreach ($cards as $card) {
-            DB::table('cards')->insert($card);}*/
-
        DB::table('cards')->insert($cards);
         
     }
