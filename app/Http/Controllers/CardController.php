@@ -104,7 +104,7 @@ class CardController extends Controller
     
      public function update(Request $request, Card $card)
      {
-         $this->authorize('update', $card);
+        /* $this->authorize('update', $card);*/
      
          $validated = $request->validate([
              'description' => 'required|string|max:500',
@@ -143,9 +143,9 @@ class CardController extends Controller
             try {
                 $card = Card::findOrFail($id);
     
-                if ($card ->user_id !== Auth::user()->id) {
+               /* if ($card ->user_id !== Auth::user()->id) {
                     return response()->json(['success' => false, 'error' => 'No tienes permiso para eliminar este destino.']);
-                }
+                }*/
    
                 $imagePath = public_path($card->image);
    
