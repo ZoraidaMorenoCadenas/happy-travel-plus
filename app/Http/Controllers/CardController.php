@@ -43,23 +43,25 @@ class CardController extends Controller
      */
     
     
-     public function store(Request $request) : RedirectResponse
-    {
-        $validated = $request->validate([
-            'description' => 'required|string|max:500',
-            'title' => 'required|string|max:255',
-            'location' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif', 
-        ]);
-     if ($request->hasFile('image')) {
+     public function store(Request $request)
+{
+    $validated = $request->validate([
+        'description' => 'required|string|max:500',
+        'title' => 'required|string|max:255',
+        'location' => 'required|string|max:255',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif'
+    ]);
+
+    if ($request->hasFile('image')) {
         $imagePath = $request->file('image')->store('images', 'public');
         $validated['image'] = $imagePath;
     }
- 
-        $card->update($validated);
-        return redirect()->route('cards.index')->with('success', '¡Registro agregado exitosamente!');
 
-    }
+    $card = Card::create($validated);
+
+    return response()->json($card, 201);
+}
+
 
 
     /**
@@ -68,39 +70,14 @@ class CardController extends Controller
      * @param  \App\Models\Card  $guest_Card
      * @return \Illuminate\Http\Response
      */
-    public function show(Card $card)
+    public function show($id): JsonResponse
     {
         try {
             $card = Card::findOrFail($id);
             return response()->json($card);
-            
         } catch (\Exception $e) {
             return response()->json(['error' => 'El destino no se encontró.'], 404);
         }
-
-
-
-
-
-
-        return [
-            "status" => 1,
-            "data" =>$card
-        ];//
-
-        /* Proyecto TravelJoy 
-        public function show(int $id)
-            {
-        $card = Card::findOrFail($id);
-        return view('detail', compact('card'));
-
-        Proyecto Moni
-        public function show($id)
-{
-    $travel = Travel::findOrFail($id);
-    return view('show', compact('travel'));
-}
-    }*/
 
 
 
@@ -124,58 +101,36 @@ class CardController extends Controller
      * @param  \App\Models\Card  $guest_Card
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Card $card)
-    {
-        $this->authorize('update', $card);
+    
+     public function update(Request $request, Card $card)
+     {
+         $this->authorize('update', $card);
+     
+         $validated = $request->validate([
+             'description' => 'required|string|max:500',
+             'title' => 'required|string|max:255',
+             'location' => 'required|string|max:255',
+             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
+         ]);
+     
+         if ($request->hasFile('image')) {
+             $imagePath = $request->file('image')->store('images', 'public');
+             $validated['image'] = $imagePath;
+         }
+     
+         /*$card->update($validated);*/
 
-        $request->validate([
-            'description' => 'required|string|max:500',
-            'title' => 'required|string|max:255',
-            'location' => 'required|string|max:255',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif',
+         $card->update([
+            'title' => $request->input('title'),
+            'location' => $request->input('location'),
+            'description' => $request->input('description')
         ]);
 
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('images', 'public');
-            $validated['image'] = $imagePath;
-        }
+        
 
-        $card->update($validated);
-        /*return redirect(route('dashboard'));*/
-
-        $card->update($request->all());
- 
-        return [
-            "status" => 1,
-            "data" => $card,
-            "msg" => "Register updated successfully"
-        ];
-        //
-
-
-        /* Travel Joy
-
-    public function update(Request $request, int $id)
-        {
-        $card = Card::findOrFail($id);
-        $data = $request->validate([
-        'image' => 'required',
-        'title' => 'required',
-        'location' => 'required',
-        'description' => 'required',
-    ]);
-
-            $card->update([
-            'image' => $data['image'],
-            'title' => $data['title'],
-            'location' => $data['location'],
-            'description' => $data['reason'],
-    ]);
-
-        return redirect()->route('cards')->with('success', 'Registro actualizado exitosamente.');
-
-         */
-    }
+         return response()->json($card, 200);
+     }
+     
 
     /**
      * Remove the specified resource from storage.
@@ -223,9 +178,13 @@ class CardController extends Controller
     //Controler de search Travel Joy
 
     public function search(Request $request):JsonResponse
-    {
-        $cards = Card::search($request->search);            
-        return response()->json($cards);
+    {   
+        /*$cards = Card::search($request->search);   
+        return response()->json($cards);*/
+        
+        $query = $request->input('query');
+        $results = Card::search($query); // Utiliza el método de búsqueda en tu modelo
+        return response()->json($results);
     }
 
         /*Moni proyecto 

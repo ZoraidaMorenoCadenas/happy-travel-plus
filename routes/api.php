@@ -15,17 +15,33 @@ use App\Http\Controllers\CardController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+/*Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
-});
-
-
+});*/
 
 Route::resource('cards', CardController::class);
+ 
+
+/*Route::get('/cards', [CardController::class, 'index']);
+Route::post('/cards', [CardController::class, 'store']);
+Route::get('/cards/{id}', [CardController::class, 'show']);
+Route::put('/cards/{id}', [CardController::class, 'update']);
+Route::delete('/cards/{id}', [CardController::class, 'destroy']);*/
+
+
+/*
+Route::get('/cards', [CardController::class, 'index']);
+Route::get('/cards/{id}', [CardController::class, 'show']);
+Route::post('/cards', [CardController::class, 'store']);
+Route::put('/cards/{id}', [CardController::class, 'update']);
+Route::delete('/cards/{id}', [CardController::class, 'destroy']);*/
+
+
 
 
 //Route::apiResource('happy_travel', TravelController::class);
 
-// OJO RUTAS
-// GET All destination http://localhost:8000/api/cards
-// GEL One destination http://localhost:8000/api/cards/{id}
+// // GET All destination http://localhost:8000/api/happy_travel
+// GEL One destination http://localhost:8000/api/happy_travel/{id}
+//PUT edit http://localhost:8000/api/happy_travel/{id} OJO lleva body y headers
+// DELETE delete http://localhost:8000/api/happy_travel/{id} (requires headers)
