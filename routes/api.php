@@ -19,22 +19,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('cards', CardController::class);
+Route::resource('destinations', DestinationController::class);
  
 
-/*Route::get('/cards', [CardController::class, 'index']);
-Route::post('/cards', [CardController::class, 'store']);
-Route::get('/cards/{id}', [CardController::class, 'show']);
-Route::put('/cards/{id}', [CardController::class, 'update']);
-Route::delete('/cards/{id}', [CardController::class, 'destroy']);*/
 
-
-/*
-Route::get('/cards', [CardController::class, 'index']);
-Route::get('/cards/{id}', [CardController::class, 'show']);
-Route::post('/cards', [CardController::class, 'store']);
-Route::put('/cards/{id}', [CardController::class, 'update']);
-Route::delete('/cards/{id}', [CardController::class, 'destroy']);*/
 
 
 
