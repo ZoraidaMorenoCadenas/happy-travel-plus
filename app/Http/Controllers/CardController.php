@@ -48,19 +48,42 @@ class CardController extends Controller
     
      public function store(Request $request) : RedirectResponse
      {
-    $validated = $request->validate([
+
+        $cards = new Card();
+        $validated = $request->validate([
         'description' => 'required|string|max:500',
         'title' => 'required|string|max:255',
         'location' => 'required|string|max:255',
         'image' => 'nullable|image|mimes:jpeg,png,jpg,gif'
     ]);
 
+    $filename = "";
+
     if ($request->hasFile('image')) {
-        $imagePath = $request->file('image')->store('images', 'public');
-        $validated['image'] = $imagePath;
+        $filename=$request->file('image')->store('images', 'public');
+        /*$validated['image'] = $imagePath;*/
+        //$imagePath = $request->file('image')->store('images', 'public');
+    }else{
+        $filename=Null;
+
+    }
+    
+
+    $cards->description=$request->description;
+    $cards->title=$request->title;
+    $cards->location=$request->location;
+    $cards->image=$filename;
+    $result=$cards->save();
+    
+    if($result){
+     return response()->json(['success' => true]);
+    } else {
+        return response()->json(['success' => false]);
     }
 
-    $card = Card::create($validated);
+    
+
+    //$card = Card::create($validated);
 
     return response()->json($card, 201);
 }
