@@ -156,7 +156,7 @@ class DestinationController extends Controller
     public function destroy(int $id) 
     {
         try {
-            $card = Card::findOrFail($id);
+            $destination = Destination::findOrFail($id);
 
            /* if ($card ->user_id !== Auth::user()->id) {
                 return response()->json(['success' => false, 'error' => 'No tienes permiso para eliminar este destino.']);
