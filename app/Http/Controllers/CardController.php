@@ -9,7 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use App\Http\Requests\SaveCardRequest;
+//use App\Http\Requests\SaveCardRequest;
 
 class CardController extends Controller
 {
@@ -46,7 +46,7 @@ class CardController extends Controller
      */
     
     
-     /*public function store(Request $request) : RedirectResponse
+     public function store(Request $request) : RedirectResponse
      {
     $validated = $request->validate([
         'description' => 'required|string|max:500',
@@ -62,18 +62,19 @@ class CardController extends Controller
 
     $card = Card::create($validated);
 
-    return response()->json($card, 201);}*/
+    return response()->json($card, 201);
+}
 
 
 
-    public function store(SaveCardRequest $request)
+    /*public function store(SaveCardRequest $request)
     {
         Card::create($request->all());
             return response()->json([
             'res'=> true,
             'msg'=> 'Destino guardado correctamente'
         ],200);
-    }
+    }*/
 
 
 
