@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\DestinationController;
+
 
 class Destination extends Model
 {
@@ -15,10 +17,10 @@ class Destination extends Model
         'image',
     ];
 
-    public function user()
+    /*public function user()
     {
         return $this->belongsTo(User::class);
-    }
+    }*/
 
     
     static function search($query){
