@@ -71,13 +71,13 @@ class DestinationController extends Controller
     $result=$destinations->save();
     
         if($result){
-         return response()->json(['success' => true]);
+         return response()->json(['success' => true,'new-destination' => $destinations]);//devolver el result
         } else {
          return response()->json(['success' => false]);
          }   
 
 
-    return response()->json($destination, 201);//plural o singular
+    //return response()->json($destinations, 201);//plural o singular
         //
     }
 
@@ -126,8 +126,8 @@ class DestinationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $destination = Destination::findOrFail($id);
-        $filestorage = public_path("storage\\".$images->image);
+        $destinations = Destination::findOrFail($id);
+        $filestorage = public_path("storage\\".$destinations->image);
         $filename="";
 
         if($request->hasFile('new_file')){
@@ -137,10 +137,11 @@ class DestinationController extends Controller
             }
             $filename=$request->file('new_image')->store('images', 'public');
         } else{
-            $filename=$request->image;//esta es image o destination ¿?
+
+            $filename=$request->image;
+            $destinations->description=$request->description;
             $destinations->title=$request->title;
             $destinations->location=$request->location;
-            $destinations->description=$request->description;
             $destinations->image=$filename;
             
             $result=$destinations->save();
@@ -156,25 +157,7 @@ class DestinationController extends Controller
       
 
 
-            /*$validated = $request->validate([
-                'description' => 'required|string|max:500',
-                'title' => 'required|string|max:255',
-                'location' => 'required|string|max:255',
-                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
-            ]);
-    
-            if ($request->hasFile('image')) {
-                $imagePath = $request->file('image')->store('images', 'public');
-                $validated['image'] = $imagePath;
-                }
-            $destination->update([
-                'title' => $request->input('title'),
-                'location' => $request->input('location'),
-                'description' => $request->input('description')
-             ]);
-
-        
-         return response()->json($destination, 200);*/
+            
      }
         //
 
