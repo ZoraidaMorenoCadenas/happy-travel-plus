@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Destination;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -123,9 +124,39 @@ class DestinationController extends Controller
      * @param  \App\Models\Destination  $destination
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Destination $destination)
+    public function update(Request $request, $id)
     {
-            $validated = $request->validate([
+        $destination = Destination::findOrFail($id);
+        $filestorage = public_path("storage\\".$images->image);
+        $filename="";
+
+        if($request->hasFile('new_file')){
+            
+            if(File::exists($filestorage)){
+                File::delete($filestorage);
+            }
+            $filename=$request->file('new_image')->store('images', 'public');
+        } else{
+            $filename=$request->image;//esta es image o destination ¿?
+            $destinations->title=$request->title;
+            $destinations->location=$request->location;
+            $destinations->description=$request->description;
+            $destinations->image=$filename;
+            
+            $result=$destinations->save();
+
+            if($result){
+                return response()->json(['success' => true]);
+               } else {
+                return response()->json(['success' => false]);
+                }  
+
+
+        }
+      
+
+
+            /*$validated = $request->validate([
                 'description' => 'required|string|max:500',
                 'title' => 'required|string|max:255',
                 'location' => 'required|string|max:255',
@@ -143,7 +174,7 @@ class DestinationController extends Controller
              ]);
 
         
-         return response()->json($destination, 200);
+         return response()->json($destination, 200);*/
      }
         //
 
