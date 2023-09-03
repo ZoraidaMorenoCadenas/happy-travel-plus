@@ -95,7 +95,7 @@ class DestinationController extends Controller
             $destination = Destination::findOrFail($id);
             return response()->json(
                 ['id' => $destination->id,
-                'user_id' => $destination->user_id,
+                // 'user_id' => $destination->user_id,
                 'title' => $destination->title,
                 'location' => $destination->location,
                 'image' => asset('storage/' . $destination->image_path) ]   );
