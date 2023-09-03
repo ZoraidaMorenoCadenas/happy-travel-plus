@@ -23,7 +23,7 @@ class DestinationController extends Controller
     {
         //
         $destinations = Destination::all();
-        return response()->json([$destinations]);
+        return response()->json($destinations);
     }
 
     /**
@@ -31,10 +31,10 @@ class DestinationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
+    // public function create()
+    // {
+    //     //
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -112,10 +112,10 @@ class DestinationController extends Controller
      * @param  \App\Models\Destination  $destination
      * @return \Illuminate\Http\Response
      */
-    public function edit(Destination $destination)
-    {
-        //
-    }
+    // public function edit(Destination $destination)
+    // {
+    //     //
+    // }
 
     /**
      * Update the specified resource in storage.
@@ -158,7 +158,7 @@ class DestinationController extends Controller
 
 
             
-     }
+    }
         //
 
     /**
