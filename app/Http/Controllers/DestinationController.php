@@ -129,6 +129,10 @@ class DestinationController extends Controller
     {
         $destination = Destination::findOrFail($id);
 
+        $destination->title=$request->input('title');
+        $destination->location=$request->input('location');
+        $destination->description=$request->input('description');
+
     // Procesar la imagen si se envía
         if ($request->hasFile('image')) {
 
@@ -149,7 +153,7 @@ class DestinationController extends Controller
         }
 
         // Actualizar campos si se proporcionan en la solicitud
-        if ($request->filled('title')) {
+        /*if ($request->filled('title')) {
         $destination->title = $request->input('title');
         }
         if ($request->filled('location')) {
@@ -157,7 +161,7 @@ class DestinationController extends Controller
          }
         if ($request->filled('description')) {
         $destination->description = $request->input('description');
-        }
+        }*/
 
     // Guardar los cambios en la base de datos
         $destination->save();
