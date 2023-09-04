@@ -129,10 +129,10 @@ class DestinationController extends Controller
     {
         $destination = Destination::findOrFail($id);
 
-        $destination->title=$request->input('title');
-        $destination->location=$request->input('location');
-        $destination->description=$request->input('description');
-
+        $destination->description=$request->description;
+        $destination->title=$request->title;
+        $destination->location=$request->location;
+       
     // Procesar la imagen si se envía
         if ($request->hasFile('image')) {
 
@@ -152,6 +152,8 @@ class DestinationController extends Controller
         $destination->image = $imagePath;
         }
 
+        $result=$destination->save();
+
         // Actualizar campos si se proporcionan en la solicitud
         /*if ($request->filled('title')) {
         $destination->title = $request->input('title');
@@ -164,12 +166,12 @@ class DestinationController extends Controller
         }*/
 
     // Guardar los cambios en la base de datos
-        $destination->save();
+        //$destination->save();
 
         return response()->json([
             'res' => true,
             'msg' => 'Destino actualizado correctamente',
-            'data' => $destination
+            'data' => $result
         ], 200);
         
         
