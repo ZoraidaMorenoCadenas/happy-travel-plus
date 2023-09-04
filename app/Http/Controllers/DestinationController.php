@@ -23,7 +23,7 @@ class DestinationController extends Controller
     {
         //
         $destinations = Destination::all();
-        return response()->json([$destinations]);
+        return response()->json($destinations);
     }
 
     /**
@@ -31,10 +31,10 @@ class DestinationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
+    // public function create()
+    // {
+    //     //
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -107,10 +107,10 @@ class DestinationController extends Controller
      * @param  \App\Models\Destination  $destination
      * @return \Illuminate\Http\Response
      */
-    public function edit(Destination $destination)
-    {
-        //
-    }
+    // public function edit(Destination $destination)
+    // {
+    //     //
+    // }
 
     /**
      * Update the specified resource in storage.
@@ -121,39 +121,89 @@ class DestinationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $destinations = Destination::findOrFail($id);
-        $filestorage = public_path("storage\\".$destinations->image);
-        $filename="";
+        $destination = Destination::findOrFail($id);
 
-        if($request->hasFile('new_file')){
-            
-            if(File::exists($filestorage)){
-                File::delete($filestorage);
-            }
-            $filename=$request->file('new_image')->store('images', 'public');
-        } else{
+        $destination->description=$request->description;
+        $destination->title=$request->title;
+        $destination->location=$request->location;
+       
+    // Procesar la imagen si se envía
+        if ($request->hasFile('image')) {
 
-            $filename=$request->image;
-            $destinations->description=$request->description;
-            $destinations->title=$request->title;
-            $destinations->location=$request->location;
-            $destinations->image=$filename;
-            
-            $result=$destinations->save();
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
 
-            if($result){
-                return response()->json(['success' => true]);
-               } else {
-                return response()->json(['success' => false]);
-                }  
+        $image = $request->file('image');
+        $imageName = time() . '.' . $image->getClientOriginalExtension();
+        $image->move(storage_path('app/public'), $imageName);
+        $destination->image = $imageName;
 
-
+        if ($destination->image) {
+            Storage::delete($destination->image);
         }
-      
 
+        $destination->image = $imagePath;
+        }
 
+        $result=$destination->save();
+
+        // Actualizar campos si se proporcionan en la solicitud
+        /*if ($request->filled('title')) {
+        $destination->title = $request->input('title');
+        }
+        if ($request->filled('location')) {
+        $destination->location = $request->input('location');
+         }
+        if ($request->filled('description')) {
+        $destination->description = $request->input('description');
+        }*/
+
+    // Guardar los cambios en la base de datos
+        //$destination->save();
+
+        return response()->json([
+            'res' => true,
+            'msg' => 'Destino actualizado correctamente',
+            'data' => $result
+        ], 200);
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        // $destinations = Destination::findOrFail($id);
+        // $filestorage = public_path("storage\\".$destinations->image);
+        // $filename="";
+
+        // if($request->hasFile('new_file')){
             
-     }
+        //     if(File::exists($filestorage)){
+        //         File::delete($filestorage);
+        //     }
+        //     $filename=$request->file('new_image')->store('images', 'public');
+        // } else{
+
+        //     $filename=$request->image;
+        //     $destinations->description=$request->description;
+        //     $destinations->title=$request->title;
+        //     $destinations->location=$request->location;
+        //     $destinations->image=$filename;
+            
+        //     $result=$destinations->save();
+
+        //     if($result){
+        //         return response()->json(['success' => true]);
+        //        } else {
+        //         return response()->json(['success' => false]);
+        //         }  
+
+    }
         //
 
     /**
