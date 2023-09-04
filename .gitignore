@@ -14,3 +14,4 @@ yarn-error.log
 composer.json
 /.idea
 /.vscode
+database.php
