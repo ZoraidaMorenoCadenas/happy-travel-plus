@@ -43,18 +43,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    // public function form_add_new_cards(): HasMany
-    // {
-    //     return $this->hasMany(FormAddNewCard::class);
-    // }
-
-    // public function cards(): HasMany
-    // {
-    //     return $this->hasMany(Card::class);
-    // }
+    
     public function Destinations()
     {
         return $this->hasMany(Destinations::class);
-    }
+    } //Es necesario poner en el modelo Destinations el belong to¿? si user tiene la rel has many ¿? la otra deberia tener 
 
 }

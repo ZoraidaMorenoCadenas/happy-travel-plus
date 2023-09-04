@@ -127,81 +127,50 @@ class DestinationController extends Controller
      */
     public function update(Request $request, $id)
     {
+       
+        $validated = $request->validate([
+            'description' => 'required|string|max:500',
+            'title' => 'required|string|max:255',
+            'location' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif'
+          ]);
+        
+        
         $destination = Destination::findOrFail($id);
-
         $destination->description=$request->description;
         $destination->title=$request->title;
         $destination->location=$request->location;
        
     // Procesar la imagen si se envía
-        if ($request->hasFile('image')) {
 
-        $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+    if ($request->hasFile('image')) {
+        $filename=$request->file('image')->store('images', 'public');
+        
+            if ($destination->image) {
+            Storage::delete($destination->image);
+            }
+
+        }else{
+        $filename= $destination->image;
+         }
+    
+        
+
+        $destination->update([
+            "description" => $request->description,
+            "title" => $request->title,
+            "location" => $request->location,
+            "image" => $filename
         ]);
 
-        $image = $request->file('image');
-        $imageName = time() . '.' . $image->getClientOriginalExtension();
-        $image->move(storage_path('app/public'), $imageName);
-        $destination->image = $imageName;
-
-        if ($destination->image) {
-            Storage::delete($destination->image);
-        }
-
-        $destination->image = $imagePath;
-        }
-
-        $result=$destination->save();
-
-        // Actualizar campos si se proporcionan en la solicitud
-        /*if ($request->filled('title')) {
-        $destination->title = $request->input('title');
-        }
-        if ($request->filled('location')) {
-        $destination->location = $request->input('location');
-         }
-        if ($request->filled('description')) {
-        $destination->description = $request->input('description');
-        }*/
-
-    // Guardar los cambios en la base de datos
-        //$destination->save();
+        
 
         return response()->json([
             'res' => true,
             'msg' => 'Destino actualizado correctamente',
-            'data' => $result
-        ], 200);
+            'data' => $destination
+        ], 200);//304 revisar
         
-        
-        
-        
-        // $destinations = Destination::findOrFail($id);
-        // $filestorage = public_path("storage\\".$destinations->image);
-        // $filename="";
-
-        // if($request->hasFile('new_file')){
-            
-        //     if(File::exists($filestorage)){
-        //         File::delete($filestorage);
-        //     }
-        //     $filename=$request->file('new_image')->store('images', 'public');
-        // } else{
-
-        //     $filename=$request->image;
-        //     $destinations->description=$request->description;
-        //     $destinations->title=$request->title;
-        //     $destinations->location=$request->location;
-        //     $destinations->image=$filename;
-            
-        //     $result=$destinations->save();
-
-        //     if($result){
-        //         return response()->json(['success' => true]);
-        //        } else {
-        //         return response()->json(['success' => false]);
-        //         }  
 
     }
         //
@@ -217,7 +186,7 @@ class DestinationController extends Controller
         try {
             $destination = Destination::findOrFail($id);
 
-           /* if ($card ->user_id !== Auth::user()->id) {
+           /* if ($destination ->user_id !== Auth::user()->id) {
                 return response()->json(['success' => false, 'error' => 'No tienes permiso para eliminar este destino.']);
             }*/
 
