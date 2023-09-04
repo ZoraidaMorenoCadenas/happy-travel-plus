@@ -93,12 +93,7 @@ class DestinationController extends Controller
 
         try {
             $destination = Destination::findOrFail($id);
-            return response()->json(
-                ['id' => $destination->id,
-                'user_id' => $destination->user_id,
-                'title' => $destination->title,
-                'location' => $destination->location,
-                'image' => asset('storage/' . $destination->image_path) ]   );
+            return response()->json(   $destination   );
         } catch (\Exception $e) {
             return response()->json(['error' => 'El destino no se encontró.'], 404);
         }
