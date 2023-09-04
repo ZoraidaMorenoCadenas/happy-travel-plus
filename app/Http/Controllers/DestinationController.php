@@ -177,12 +177,6 @@ class DestinationController extends Controller
         
         
         
-        
-        
-        
-        
-        
-        
         // $destinations = Destination::findOrFail($id);
         // $filestorage = public_path("storage\\".$destinations->image);
         // $filename="";
@@ -246,12 +240,23 @@ class DestinationController extends Controller
 
     public function search(Request $request):JsonResponse
     {   
-        /*$cards = Card::search($request->search);   
-        return response()->json($cards);*/
+        /*$destination = Destination::search($request->search);   
+        return response()->json($destination);*/
         
         $query = $request->input('query');
         $results = Destination::search($query); // Utiliza el método de búsqueda en tu modelo
         return response()->json($results);
+
+
+//Metodo adaptado del proyecto Yana
+        /*$query = $request->input('query');
+
+        $destinations = Destination::where('title', 'LIKE', "%$query%")
+            ->orWhere('location', 'LIKE', "%$query%")
+            ->get();
+
+    
+        return response()->json($destinations);*/
 
     }
 
