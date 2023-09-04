@@ -44,9 +44,9 @@ class User extends Authenticatable
     ];
 
     
-    public function Destinations()
-    {
-        return $this->hasMany(Destinations::class);
-    } //Es necesario poner en el modelo Destinations el belong to¿? si user tiene la rel has many ¿? la otra deberia tener 
+    // public function Destinations()
+    // {
+    //     return $this->hasMany(Destinations::class);
+    // } 
 
 }

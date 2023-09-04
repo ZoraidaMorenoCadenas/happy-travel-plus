@@ -44,6 +44,7 @@ class DestinationController extends Controller
      */
     public function store(Request $request)
     {
+        
 
         $destinations = new Destination();
         $validated = $request->validate([
@@ -61,14 +62,13 @@ class DestinationController extends Controller
         //$imagePath = $request->file('image')->store('images', 'public');
         }else{
         $filename=Null;
-
-    }
+        }
     
-    $destinations->description=$request->description;
-    $destinations->title=$request->title;
-    $destinations->location=$request->location;
-    $destinations->image=$filename;
-    $result=$destinations->save();
+        $destinations->description=$request->description;
+        $destinations->title=$request->title;
+        $destinations->location=$request->location;
+        $destinations->image=$filename;
+        $result=$destinations->save();
     
         if($result){
          return response()->json(['success' => true,'new-destination' => $destinations]);//devolver el result
@@ -76,10 +76,7 @@ class DestinationController extends Controller
          return response()->json(['success' => false]);
          }   
 
-
-    //return response()->json($destinations, 201);//plural o singular
-        //
-    }
+        }
 
 
     /**
@@ -128,7 +125,7 @@ class DestinationController extends Controller
     public function update(Request $request, $id)
     {
        
-        $validated = $request->validate([
+        $request->validate([
             'description' => 'required|string|max:500',
             'title' => 'required|string|max:255',
             'location' => 'required|string|max:255',
@@ -137,9 +134,9 @@ class DestinationController extends Controller
         
         
         $destination = Destination::findOrFail($id);
-        $destination->description=$request->description;
-        $destination->title=$request->title;
-        $destination->location=$request->location;
+        //$destination->description=$request->description;
+        // $destination->title=$request->title;
+        // $destination->location=$request->location;
        
     // Procesar la imagen si se envía
 

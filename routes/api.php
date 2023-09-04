@@ -32,7 +32,7 @@ Route::get('/destinations/search/{name}', [DestinationController::class, 'search
 // });
 
 Route::post('/destinations', [DestinationController::class, 'store']);
-    Route::put('/destinations/{id}', [DestinationController::class, 'update']);
+    Route::post('/destinations/{id}', [DestinationController::class, 'update']);
     Route::delete('/destinations/{id}', [DestinationController::class, 'destroy']);
     Route::post('/logout', [AuthController::class, 'logout']);
 
