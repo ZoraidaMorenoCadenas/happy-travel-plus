@@ -93,7 +93,7 @@ class DestinationController extends Controller
 
         try {
             $destination = Destination::findOrFail($id);
-            return response()->json(   $destination   );
+            return response()->json($destination);
         } catch (\Exception $e) {
             return response()->json(['error' => 'El destino no se encontró.'], 404);
         }
@@ -250,4 +250,3 @@ class DestinationController extends Controller
     }
 
 }
-
