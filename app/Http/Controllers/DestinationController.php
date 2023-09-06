@@ -52,6 +52,8 @@ class DestinationController extends Controller
         'title' => 'required|string|max:255',
         'location' => 'required|string|max:255',
         'image' => 'nullable|image|mimes:jpeg,png,jpg,gif'
+        //'user_id' => '
+
       ]);
 
         $filename = "";
@@ -64,6 +66,7 @@ class DestinationController extends Controller
         $filename=Null;
         }
     
+        //user id
         $destinations->description=$request->description;
         $destinations->title=$request->title;
         $destinations->location=$request->location;
