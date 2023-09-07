@@ -26,14 +26,14 @@ class DestinationSeeder extends Seeder
             [   'image' => "images/01.jpg",
                 'title' => 'StorageURL',
                 'location' => 'Puerto Rico',
-                'description' => 'storage URL'
+                'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'
             ],
             
             [   
                 'image' => "images/02.jpg",
                 'title' => 'Extreme travel',
                 'location' => 'Everest',
-                'description' => 'Snow and sport'
+                'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'
             ],
 
             [
@@ -41,14 +41,14 @@ class DestinationSeeder extends Seeder
                 'image' => "images/03.jpg",
                 'title' => 'Romantic Vacation',
                 'location' => 'Italia',
-                'description' => 'storage::URL'
+                'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'
             ],
             [
                
                 'image' => 'images/04.jpg',
                 'title' => 'Safari de aventura',
                 'location' => 'Kenia',
-                'description' => 'hhtp'
+                'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'
             ],
             
             [
@@ -56,7 +56,7 @@ class DestinationSeeder extends Seeder
                 'image' => 'images/05.jpg',
                 'title' => 'Escapada Soñada',
                 'location' => 'Grecia',
-                'description' => 'URL las puestas de sol son más intensas. Los viajeros nunca quieren irse'
+                'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'
             ],
 
             [
