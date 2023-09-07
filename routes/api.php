@@ -20,6 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::resource('destinations', DestinationController::class);
+Route::post('/api/destinations', 'DestinationController@store');
  
 
 
