@@ -52,7 +52,7 @@
         $cardsPerPage = 8;
         $currentPage = request()->query('page', 1);
 
-        $combinedCards = $cards->concat($formAddNewCards);
+        $combinedCards = $cards;
         $totalPages = ceil($combinedCards->count() / $cardsPerPage);
         $startIndex = ($currentPage - 1) * $cardsPerPage;
         $slicedCards = $combinedCards->slice($startIndex, $cardsPerPage);
@@ -61,7 +61,7 @@
         @foreach ($slicedCards as $card)
         <div class="card-container">
             <div class="img-container">
-                @if ($card instanceof App\Models\FormAddNewCard)
+                @if ($card instanceof App\Models\Card)
                 <img class="image-card" src="{{ asset('storage/' . $card->image) }}" alt="Image">
                 @else
                 <img class="image-card" src="{{ $card->image }}" alt="{{ $card->title }}">

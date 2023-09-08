@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFormAddNewCardsTable extends Migration
+class CreateDestinationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateFormAddNewCardsTable extends Migration
      */
     public function up()
     {
-        Schema::create('form_add_new_cards', function (Blueprint $table) {
+        Schema::create('destinations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->text('description')->limit(500);
             $table->string('title');
             $table->string('location');
             $table->string('image');
+            //$table->string('user_id');
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ class CreateFormAddNewCardsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('form_add_new_cards');
+        Schema::dropIfExists('destinations');
     }
 }

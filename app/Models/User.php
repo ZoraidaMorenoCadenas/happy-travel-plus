@@ -43,9 +43,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function form_add_new_cards(): HasMany
-    {
-        return $this->hasMany(FormAddNewCard::class);
-    }
+    
+    // public function Destinations()
+    // {
+    //     return $this->hasMany(Destinations::class);
+    // } 
 
 }
