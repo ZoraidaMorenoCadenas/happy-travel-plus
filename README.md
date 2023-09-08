@@ -8,7 +8,7 @@
 ## General information
 ***
 
-Happy Travel is a collaborative project in which we develop an app where travelers and adventurers from the world can share those destinations they want to visit desperately and what motivates them. The application has two types of authenticated and unauthenticated users. The former have access to create, edit and delete their travel dreams, while the unauthenticated can query and view the dream destinations of all other users.
+Happy Travel Plus is a collaborative project in which we develop an app where travelers and adventurers from the world can share those destinations they want to visit desperately and what motivates them. The application has two types of authenticated and unauthenticated users. The former have access to create, edit and delete their travel dreams, while the unauthenticated can query and view the dream destinations of all other users.
 
 
 ## 💻 Technologies 
