@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="src/assets/Logo.svg" alt= "Logo Happy Travel " width=250px> 
+  <img src="public/assets/Logo.svg" alt= "Logo Happy Travel " width=250px> 
 </h1> 
 
 ## Team: Happy Travel Plus
