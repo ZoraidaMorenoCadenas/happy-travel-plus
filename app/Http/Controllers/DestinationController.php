@@ -99,7 +99,7 @@ class DestinationController extends Controller
                 'title' => $destination->title,
                 'description' => $destination->description,
                 'location' => $destination->location,
-                'image' => asset('storage/' . $destination->image_path) ]   );
+                'image' => $destination->image]);
         } catch (\Exception $e) {
             return response()->json(['error' => 'El destino no se encontró.'], 404);
         }
